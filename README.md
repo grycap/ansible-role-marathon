@@ -4,7 +4,7 @@
 Marathon Role
 =============
 
-Install Marathon in a Mesos cluster (recipe for EC3)
+Install Marathon in a Mesos cluster (recipe for EC3). The Marathon current version installed is Version 1.3.6.
 
 Example Playbook
 ----------------
