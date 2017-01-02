@@ -39,6 +39,7 @@
       apt_key:
         keyserver: keyserver.ubuntu.com
         id: E56151BF
+      when: ansible_os_family == "Debian"
 
     - name: Create lst file ubuntu 14
       copy: content="deb http://repos.mesosphere.com/ubuntu trusty main" dest=/etc/apt/sources.list.d/mesosphere.list
