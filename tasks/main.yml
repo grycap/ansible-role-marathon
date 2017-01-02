@@ -20,15 +20,15 @@
       when: ansible_os_family == "Debian"
 
     #Install java 8 dependency for marathon in redhat
-    - name: Install wget command
-      yum: pkg=wget
-
     - name: Download Oracle Java 8
-      command: "wget --no-cookies --no-check-certificate --header 'Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie' http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.rpm"
+      get_url:
+        url: http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.rpm
+        dest: /tmp/jdk-8u66-linux-x64.rpm
+        headers: 'Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie'
       when: ansible_os_family == "RedHat"
 
     - name: Install oracle java 8 (jdk-8u66)
-      command: rpm -ivh jdk-8u66-linux-x64.rpm creates=/usr/java/jdk1.8.0_66
+      yum: pkg=/tmp/jdk-8u66-linux-x64.rpm state=present
       when: ansible_os_family == "RedHat"
 
     - name: Install marathon package in Debian systems
