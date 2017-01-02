@@ -31,6 +31,23 @@
       yum: pkg=/tmp/jdk-8u66-linux-x64.rpm state=present
       when: ansible_os_family == "RedHat"
 
+    - name: Install marathon repo
+      yum: pkg=http://repos.mesosphere.com/el/6/noarch/RPMS/mesosphere-el-repo-6-2.noarch.rpm state=present
+      when: ansible_os_family == "RedHat"
+
+    - name: Add keyserver
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: E56151BF
+
+    - name: Create lst file ubuntu 14
+      copy: content="deb http://repos.mesosphere.com/ubuntu trusty main" dest=/etc/apt/sources.list.d/mesosphere.list
+      when: ansible_os_family == "Debian" and ansible_distribution_major_version == "14"
+
+    - name: Create lst file ubuntu 16
+      copy: content="deb http://repos.mesosphere.com/ubuntu xenial main" dest=/etc/apt/sources.list.d/mesosphere.list
+      when: ansible_os_family == "Debian" and ansible_distribution_major_version == "16"
+
     - name: Install marathon package in Debian systems
       apt: pkg=marathon state=present update_cache=yes
       when: ansible_os_family == "Debian"
