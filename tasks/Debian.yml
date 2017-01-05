@@ -1,0 +1,36 @@
+---
+  #Install java 8 dependency for marathon in debian
+  - name: Add webupd8 ppa repository
+    apt_repository: repo='ppa:webupd8team/java'
+
+  - name: apt update
+    apt: update_cache=yes
+
+  - name: Auto accept oracle jdk license
+    shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+ 
+  - name: Install java8
+    shell: apt-get install -y oracle-java8-installer ca-certificates
+
+  - name: Install oracle-java8-set-default package
+    apt: pkg=oracle-java8-set-default state=present update_cache=yes
+
+  - name: Add key for Mesosphere repository for Debian systems
+    apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0xE56151BF state=present
+
+  - name: Determine Linux distribution distributor
+    shell: lsb_release -is | tr '[:upper:]' '[:lower:]'
+    register: release_distributor
+
+  - name: Determine Linux distribution codename
+    command: lsb_release -cs
+    register: release_codename
+
+  - name: Add Mesosphere repository to sources list
+    copy:
+      content: "deb http://repos.mesosphere.io/{{release_distributor.stdout}} {{release_codename.stdout}} main"
+      dest: /etc/apt/sources.list.d/mesosphere.list
+      mode: 0644
+
+  - name: Install marathon package in Debian systems
+    apt: pkg=marathon state=present update_cache=yes

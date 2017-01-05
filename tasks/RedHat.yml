@@ -1,0 +1,21 @@
+---
+  #Install java 8 dependency for marathon in redhat
+  - name: Download Oracle Java 8
+    get_url:
+      url: http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.rpm
+      dest: /tmp/jdk-8u66-linux-x64.rpm
+      headers: 'Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie'
+
+  - name: Install oracle java 8 (jdk-8u66)
+    yum: pkg=/tmp/jdk-8u66-linux-x64.rpm state=present
+
+  - name: Install marathon repo in RedHat 6
+    yum: pkg=http://repos.mesosphere.com/el/6/noarch/RPMS/mesosphere-el-repo-6-3.noarch.rpm state=present
+    when: ansible_distribution_major_version == "6"
+
+  - name: Install marathon repo in RedHat 7
+    yum: pkg=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm state=present
+    when: ansible_distribution_major_version == "7"
+
+  - name: Install marathon package in RedHat systems
+    yum: name=marathon state=present update_cache=yes
