@@ -30,10 +30,14 @@
     - name: Install oracle java 8 (jdk-8u66)
       yum: pkg=/tmp/jdk-8u66-linux-x64.rpm state=present
       when: ansible_os_family == "RedHat"
+      
+    - name: Install marathon repo in RedHat 6
+      yum: pkg=http://repos.mesosphere.com/el/6/noarch/RPMS/mesosphere-el-repo-6-3.noarch.rpm state=present
+      when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
-    - name: Install marathon repo
-      yum: pkg=http://repos.mesosphere.com/el/6/noarch/RPMS/mesosphere-el-repo-6-2.noarch.rpm state=present
-      when: ansible_os_family == "RedHat"
+    - name: Install marathon repo in RedHat 7
+      yum: pkg=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm state=present
+      when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
     - name: Add keyserver
       apt_key:
