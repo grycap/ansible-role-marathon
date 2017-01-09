@@ -34,3 +34,6 @@
 
   - name: Install marathon package in Debian systems
     apt: pkg=marathon state=present update_cache=yes
+
+  - name: start marathon
+    service: name=marathon state=started enabled=yes

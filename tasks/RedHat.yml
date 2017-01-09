@@ -10,7 +10,7 @@
     yum: pkg=/tmp/jdk-8u66-linux-x64.rpm state=present
 
   - name: Install marathon repo in RedHat 6
-    yum: pkg=http://repos.mesosphere.com/el/6/noarch/RPMS/mesosphere-el-repo-6-3.noarch.rpm state=present
+    yum: pkg=http://repos.mesosphere.com/el/6/noarch/RPMS/mesosphere-el-repo-6-2.noarch.rpm state=present
     when: ansible_distribution_major_version == "6"
 
   - name: Install marathon repo in RedHat 7
@@ -19,3 +19,11 @@
 
   - name: Install marathon package in RedHat systems
     yum: name=marathon state=present update_cache=yes
+
+  - name: start marathon
+    service: name=marathon state=started enabled=yes
+    when: ansible_distribution_major_version == "7"
+
+  - name: start marathon
+    service: name=marathon state=started enabled=yes use=upstart
+    when: ansible_distribution_major_version == "6"
