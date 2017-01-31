@@ -1,5 +1,39 @@
-   - name: Include "{{ansible_os_family}}" marathon recipe
-     include: "{{ansible_os_family}}.yml"
+- name: Include "{{ansible_os_family}}" marathon recipe
+  include: "{{ansible_os_family}}.yml"
 
-   - name: start marathon
-     service: name=marathon state=started enabled=yes
+- block:
+  - name: Set Marathon principal
+    copy:
+      content: "{{principal}}"
+      dest: /etc/marathon/conf/mesos_authentication_principal
+      mode: 0600
+
+  - name: Set Mesos authentication for Marathon
+    copy:
+      content: ""
+      dest: /etc/marathon/conf/?mesos_authentication
+      mode: 0600
+
+  - name: Set Marathon credentials
+    copy:
+      content: "/tmp/marathon-secret"
+      dest: /etc/marathon/conf/mesos_authentication_secret_file
+      mode: 0600
+
+  - name: Set Marathon security configuration - role
+    copy:
+      content: "foo"
+      dest: /etc/marathon/conf/mesos_role
+      mode: 0644
+
+  - name: Set Marathon credentials
+    copy:
+      content: "{{secret}}"
+      dest: /tmp/marathon-secret
+      mode: 0600
+
+  tags:
+    - authentication
+
+- name: start marathon
+  service: name=marathon state=started enabled=yes

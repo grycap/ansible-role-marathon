@@ -8,7 +8,7 @@
 
   - name: Auto accept oracle jdk license
     shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
- 
+
   - name: Install java8
     shell: apt-get install -y oracle-java8-installer ca-certificates
 
@@ -35,5 +35,6 @@
   - name: Install marathon package in Debian systems
     apt: pkg=marathon state=present update_cache=yes
 
-  - name: start marathon
-    service: name=marathon state=started enabled=yes
+
+#  - name: start marathon
+#    service: name=marathon state=started enabled=yes
