@@ -20,10 +20,10 @@
   - name: Install marathon package in RedHat systems
     yum: name=marathon state=present update_cache=yes
 
-  - name: start marathon
-    service: name=marathon state=started enabled=yes
-    when: ansible_distribution_major_version == "7"
+#  - name: start marathon
+#    service: name=marathon state=started enabled=yes
+#    when: ansible_distribution_major_version == "7"
 
-  - name: start marathon
-    service: name=marathon state=started enabled=yes use=upstart
-    when: ansible_distribution_major_version == "6"
+#  - name: start marathon
+#    service: name=marathon state=started enabled=yes use=upstart
+#    when: ansible_distribution_major_version == "6"
