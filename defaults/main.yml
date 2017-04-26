@@ -11,4 +11,4 @@ marathon_http_port: '8080'
 marathon_master_peers: "zk://{{ zookeeper_peers_nodes }}/mesos"
 marathon_zk_peers: "zk://{{ zookeeper_peers_nodes }}"
 marathon_username: "admin"
-marathon_password: "s3cret!""
+marathon_password: "s3cret!"
