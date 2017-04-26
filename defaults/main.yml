@@ -1,3 +1,14 @@
 ---
 principal: ubuntu
 secret: ubuntusecret
+
+zookeeper_client_port: "2181"
+zookeeper_peers_nodes: "{{ ansible_default_ipv4.address }}:{{zookeeper_client_port}}"
+
+marathon_hostname: "{{ ansible_default_ipv4.address }}"
+marathon_framework_name: "marathon"
+marathon_http_port: '8080'
+marathon_master_peers: "zk://{{ zookeeper_peers_nodes }}/mesos"
+marathon_zk_peers: "zk://{{ zookeeper_peers_nodes }}"
+marathon_username: "admin"
+marathon_password: "s3cret!""
