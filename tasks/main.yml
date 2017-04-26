@@ -28,22 +28,16 @@
     dest: /etc/marathon/conf/mesos_role
     mode: 0644
 
-- name: Set Mesos-Marathon security configuration - role
-  copy:
-    content: "foo"
-    dest: /etc/marathon/conf/mesos_role
-    mode: 0644
-
 - name: Set Mesos-Marathon credentials
   copy:
     content: "{{secret}}"
     dest: /tmp/marathon-secret
     mode: 0600
 
-- name: Set Marathon user password
+- name: Set Marathon user/password
   copy:
     content: "{{marathon_username}}:{{marathon_password}}"
-    dest: /etc/marathon/conf/http_creadentials
+    dest: /etc/marathon/conf/http_credentials
     mode: 0600
 
 - name: start marathon
