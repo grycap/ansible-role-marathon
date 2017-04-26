@@ -34,6 +34,11 @@
 #    dest: /tmp/marathon-secret
 #    mode: 0600
 
+- name: Create marathon configuration forlder
+  file:
+    path: /etc/sysconfig
+    state: directory
+
 - name: Create marathon configuration
   template:
     src: marathon-env.j2
