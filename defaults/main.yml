@@ -1,3 +1,6 @@
 ---
 principal: ubuntu
 secret: ubuntusecret
+
+marathon_username: "admin"
+marathon_password: "s3cret!"
