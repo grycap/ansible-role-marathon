@@ -8,6 +8,7 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - trusty
+    - xenial
   - name: EL
     versions:
     - 7
@@ -16,7 +17,5 @@ galaxy_info:
    - mesos
 
 dependencies: []
-#   - { role: 'grycap.docker' }
-#   - { role: 'grycap.mesos', mesos_install_mode: "front"}
 
 
