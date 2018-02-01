@@ -3,7 +3,7 @@
 
 - name: Set Marathon configuration
   blockinfile:
-    path: /etc/ssh/sshd_config
+    path: /etc/default/marathon
     insertafter: EOF
     block: |
       MARATHON_MASTER="zk://{{ansible_default_ipv4.address}}:2181/mesos"
