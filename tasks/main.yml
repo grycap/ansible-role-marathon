@@ -1,44 +1,18 @@
 - name: Include "{{ansible_os_family}}" marathon recipe
   include: "{{ansible_os_family}}.yml"
 
-- name: Create marathon conf folder
-  file: path=/etc/marathon/conf state=directory mode=0755
-
-- name: Set Mesos-Marathon principal
-  copy:
-    content: "{{principal}}"
-    dest: /etc/marathon/conf/mesos_authentication_principal
-    mode: 0600
-
-- name: Set Mesos authentication for Marathon
-  copy:
-    content: ""
-    dest: /etc/marathon/conf/?mesos_authentication
-    mode: 0600
-
-- name: Set Mesos-Marathon credentials
-  copy:
-    content: "/tmp/marathon-secret"
-    dest: /etc/marathon/conf/mesos_authentication_secret_file
-    mode: 0600
-
-- name: Set Mesos-Marathon security configuration - role
-  copy:
-    content: "foo"
-    dest: /etc/marathon/conf/mesos_role
-    mode: 0644
-
-- name: Set Mesos-Marathon credentials
-  copy:
-    content: "{{secret}}"
-    dest: /tmp/marathon-secret
-    mode: 0600
-
-- name: Set Marathon user/password
-  copy:
-    content: "{{marathon_username}}:{{marathon_password}}"
-    dest: /etc/marathon/conf/http_credentials
-    mode: 0600
+- name: Set Marathon configuration
+  blockinfile:
+    path: /etc/ssh/sshd_config
+    insertafter: EOF
+    block: |
+      MARATHON_MASTER="zk://{{ansible_default_ipv4.address}}:2181/mesos"
+      MARATHON_ZK="zk://{{ansible_default_ipv4.address}}:2181/marathon"
+      MARATHON_MESOS_ROLE="{{marathon_mesos_role}}"
+      MARATHON_HTTP_CREDENTIALS="{{marathon_username}}:{{marathon_password}}"
+      MARATHON_MESOS_AUTHENTICATION=""
+      MARATHON_MESOS_AUTHENTICATION_PRINCIPAL="{{principal}}"
+      MARATHON_MESOS_AUTHENTICATION_SECRET_FILE="{{secret}}"
 
 - name: start marathon
   service: name=marathon state=started enabled=yes

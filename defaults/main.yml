@@ -1,6 +1,9 @@
 ---
-principal: ubuntu
-secret: ubuntusecret
-
+# Mesos framework credentials
+principal: "ubuntu"
+secret: "ubuntusecret"
+# Marathon default credentials
 marathon_username: "admin"
 marathon_password: "s3cret!"
+# Role name registered in mesos
+marathon_mesos_role: "foo"
