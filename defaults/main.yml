@@ -7,3 +7,5 @@ marathon_username: "admin"
 marathon_password: "s3cret!"
 # Role name registered in mesos
 marathon_mesos_role: "foo"
+# Default user for marathon
+marathon_mesos_user: "root"
