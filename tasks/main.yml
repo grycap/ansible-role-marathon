@@ -25,6 +25,7 @@
       MARATHON_MESOS_AUTHENTICATION=""
       MARATHON_MESOS_AUTHENTICATION_PRINCIPAL="{{principal}}"
       MARATHON_MESOS_AUTHENTICATION_SECRET_FILE=/opt/marathon/conf/marathon-secret
+      MARATHON_MESOS_USER="{{marathon_mesos_user}}"
 
 - name: start marathon
   service: name=marathon state=started enabled=yes
