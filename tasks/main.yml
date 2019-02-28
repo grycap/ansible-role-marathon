@@ -18,8 +18,8 @@
     path: /etc/default/marathon
     insertafter: EOF
     block: |
-      MARATHON_MASTER="zk://{{ansible_default_ipv4.address}}:2181/mesos"
-      MARATHON_ZK="zk://{{ansible_default_ipv4.address}}:2181/marathon"
+      MARATHON_MASTER="zk://{{marathon_mesos_master}}:2181/mesos"
+      MARATHON_ZK="zk://{{marathon_mesos_master}}:2181/marathon"
       MARATHON_MESOS_ROLE="{{marathon_mesos_role}}"
       MARATHON_HTTP_CREDENTIALS="{{marathon_username}}:{{marathon_password}}"
       MARATHON_MESOS_AUTHENTICATION=""
