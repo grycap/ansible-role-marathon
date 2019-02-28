@@ -6,7 +6,7 @@
       dest: /tmp/jdk-8u201-linux-x64.rpm
       headers: 'Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie'
 
-  - name: Install oracle java 8 (jdk-8u66)
+  - name: Install oracle java 8 (jdk-8u201)
     yum: pkg=/tmp/jdk-8u201-linux-x64.rpm state=present
 
   - name: Install marathon repo in RedHat 6

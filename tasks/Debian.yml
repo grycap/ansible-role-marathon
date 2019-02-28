@@ -5,6 +5,9 @@
     repo: 'ppa:openjdk-r/ppa'
   when: ansible_os_family == "Debian" and ansible_distribution_major_version == "14"
 
+- name: Create man dir to patch ubuntu 14
+  file: path=/usr/share/man/man1 state=directory recurse=yes
+
 - name: Ensure Java is installed
   apt: name=openjdk-8-jre-headless state=present update_cache=yes
 
