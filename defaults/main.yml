@@ -11,3 +11,7 @@ marathon_mesos_role: "foo"
 marathon_mesos_user: "root"
 # IP of the mesos master
 marathon_mesos_master: "{{ansible_default_ipv4.address}}"
+# Deploy the marathon lb service
+marathon_lb: true
+# Last port to be exposed in the container (first is 10000)
+marathon_lb_last_port: 10100
