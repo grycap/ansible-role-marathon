@@ -38,6 +38,7 @@
 
   - name: Launch marathon-lb container
     docker_container:
+      restart: yes
       name: marathon-lb
       image: "mesosphere/marathon-lb"
       command: "sse --group external -m http://{{ marathon_mesos_master }}:8080 --auth-credentials {{ marathon_username }}:{{ marathon_password }}"
