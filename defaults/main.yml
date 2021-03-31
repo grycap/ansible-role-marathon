@@ -1,7 +1,7 @@
 ---
 # Mesos framework credentials
-principal: "ubuntu"
-secret: "ubuntusecret"
+mesos_principal: "ubuntu"
+mesos_secret: "ubuntusecret"
 # Marathon default credentials
 marathon_username: "admin"
 marathon_password: "s3cret!"

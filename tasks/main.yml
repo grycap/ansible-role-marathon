@@ -3,7 +3,7 @@
 
 - name: Set Mesos-Marathon credentials
   copy:
-    content: "{{secret}}"
+    content: "{{mesos_secret}}"
     dest: /etc/marathon/marathon-secret
     mode: 0644
 
@@ -23,7 +23,7 @@
       MARATHON_MESOS_ROLE="{{marathon_mesos_role}}"
       MARATHON_HTTP_CREDENTIALS="{{marathon_username}}:{{marathon_password}}"
       MARATHON_MESOS_AUTHENTICATION=""
-      MARATHON_MESOS_AUTHENTICATION_PRINCIPAL="{{principal}}"
+      MARATHON_MESOS_AUTHENTICATION_PRINCIPAL="{{mesos_principal}}"
       MARATHON_MESOS_AUTHENTICATION_SECRET_FILE=/etc/marathon/marathon-secret
       MARATHON_MESOS_USER="{{marathon_mesos_user}}"
 
