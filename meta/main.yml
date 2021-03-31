@@ -16,6 +16,6 @@ galaxy_info:
    - marathon
    - mesos
 
-dependencies: []
-
+dependencies:
+  - { role: 'grycap.docker' }
 
