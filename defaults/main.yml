@@ -1,7 +1,7 @@
 ---
 # Mesos framework credentials
-principal: "ubuntu"
-secret: "ubuntusecret"
+mesos_principal: "ubuntu"
+mesos_secret: "ubuntusecret"
 # Marathon default credentials
 marathon_username: "admin"
 marathon_password: "s3cret!"
@@ -12,6 +12,9 @@ marathon_mesos_user: "root"
 # IP of the mesos master
 marathon_mesos_master: "{{ansible_default_ipv4.address}}"
 # Deploy the marathon lb service
-marathon_lb: true
+marathon_lb: false
 # Last port to be exposed in the container (first is 10000)
 marathon_lb_last_port: 10100
+# Docker image and version to launch
+marathon_version: '1.5.6'
+marathon_image: "indigodatacloud/marathon:{{ marathon_version }}"

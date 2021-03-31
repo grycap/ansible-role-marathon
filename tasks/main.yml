@@ -1,34 +1,31 @@
-- name: Include "{{ansible_os_family}}" marathon recipe
-  include: "{{ansible_os_family}}.yml"
-
-- name: Create marathon conf folder
-  file: 
-    path: /opt/marathon/conf
-    state: directory
-    mode: 0755
+- name: create etc directory
+  file: state=directory path=/etc/marathon
 
 - name: Set Mesos-Marathon credentials
   copy:
-    content: "{{secret}}"
-    dest: /opt/marathon/conf/marathon-secret
+    content: "{{mesos_secret}}"
+    dest: /etc/marathon/marathon-secret
     mode: 0644
 
-- name: Set Marathon configuration
-  blockinfile:
-    path: /etc/default/marathon
-    insertafter: EOF
-    block: |
+- name: run marathon container
+  docker_container:
+    name: marathon
+    image: "{{ marathon_image }}"
+    state: started
+    detach: true
+    restart_policy: always
+    network_mode: host
+    volumes:
+    - "/etc/marathon/marathon-secret:/etc/marathon/marathon-secret"
+    env:
       MARATHON_MASTER="zk://{{marathon_mesos_master}}:2181/mesos"
       MARATHON_ZK="zk://{{marathon_mesos_master}}:2181/marathon"
       MARATHON_MESOS_ROLE="{{marathon_mesos_role}}"
       MARATHON_HTTP_CREDENTIALS="{{marathon_username}}:{{marathon_password}}"
       MARATHON_MESOS_AUTHENTICATION=""
-      MARATHON_MESOS_AUTHENTICATION_PRINCIPAL="{{principal}}"
-      MARATHON_MESOS_AUTHENTICATION_SECRET_FILE=/opt/marathon/conf/marathon-secret
+      MARATHON_MESOS_AUTHENTICATION_PRINCIPAL="{{mesos_principal}}"
+      MARATHON_MESOS_AUTHENTICATION_SECRET_FILE=/etc/marathon/marathon-secret
       MARATHON_MESOS_USER="{{marathon_mesos_user}}"
-
-- name: start marathon
-  service: name=marathon state=started enabled=yes
 
 - block:
   - set_fact: ports=""
