@@ -40,7 +40,7 @@ jobs:
         run: sudo ansible-galaxy install grycap.zookeeper
 
       - name: Install grycap.mesos
-        run: sudo ansible-galaxy install grycap.mesos,docker
+        run: sudo ansible-galaxy install grycap.mesos
 
       - name: Basic role syntax check
         run: sudo ansible-playbook tests/test.yml -i tests/inventory --syntax-check
