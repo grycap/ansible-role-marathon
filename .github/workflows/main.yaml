@@ -48,5 +48,8 @@ jobs:
       - name: Basic role check in front
         run: sudo ansible-playbook tests/test.yml -i tests/inventory
 
+      - name: logs
+        run: sleep 10 ; sudo docker logs marathon
+
       - name: Test marathon
         run: sleep 10 ; curl -u "admin:s3cret!"  -L -X GET http://localhost:8080/v2/apps?embed=tasks
