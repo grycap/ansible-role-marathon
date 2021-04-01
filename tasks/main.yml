@@ -28,11 +28,6 @@
       MARATHON_MESOS_USER="{{marathon_mesos_user}}"
 
 - block:
-  - set_fact: ports=""
-  - set_fact: ports="{{ ports|list + [ item ] }}"
-    with_sequence: start=10000 end={{ marathon_lb_last_port }}
-  - set_fact: ports="{{ ports + ['9090'] }}"
-
   - name: Launch marathon-lb container
     docker_container:
       restart: yes
@@ -40,7 +35,6 @@
       image: "mesosphere/marathon-lb"
       command: "sse --group external -m http://{{ marathon_mesos_master }}:8080 --auth-credentials {{ marathon_username }}:{{ marathon_password }}"
       state: started
-      ports: "{{ports}}"
       env:
          PORTS: '9090'
       network_mode: "host"

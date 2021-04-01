@@ -2,4 +2,5 @@
 - hosts: localhost
   roles:
     - grycap.mesos
-    - ansible-role-marathon
+    - role: ansible-role-marathon
+      marathon_lb: true
